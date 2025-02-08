@@ -6,5 +6,5 @@ import "enjoy/cli"
 // the <icon src="AllIcons.Actions.Execute"/> icon in the gutter and select the <b>Run</b> menu item from here.</p>
 
 func main() {
-	cli.Execute()
+    cli.Execute()
 }
