@@ -1,4 +1,4 @@
-package imageprocessor
+package image
 
 import (
 	"errors"
