@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"enjoy/image"
+	img "enjoy/image"
 	"github.com/spf13/cobra"
 	"path/filepath"
 )
@@ -10,7 +10,7 @@ var inputPath string
 var outputPath string
 
 // Processor 依存性を注入
-var Processor image.ImageProcessor = &image.DefaultImageProcessor{}
+var Processor img.Processor = &img.DefaultProcessor{}
 
 var GrayscaleCmd = &cobra.Command{
 	Use:   "grayscale",

@@ -14,15 +14,15 @@ import (
 	"strings"
 )
 
-// ImageProcessor インターフェイス定義
-type ImageProcessor interface {
+// Processor インターフェイス定義
+type Processor interface {
 	ConvertToGray(inputPath, outputPath string) error
 }
 
-// DefaultImageProcessor デフォルト実装
-type DefaultImageProcessor struct{}
+// DefaultProcessor デフォルト実装
+type DefaultProcessor struct{}
 
-func (p *DefaultImageProcessor) ConvertToGray(inputPath, outputPath string) error {
+func (p *DefaultProcessor) ConvertToGray(inputPath, outputPath string) error {
 	// 拡張子を確認
 	ext := strings.ToLower(filepath.Ext(inputPath))
 	if ext != ".jpeg" && ext != ".jpg" && ext != ".png" {
