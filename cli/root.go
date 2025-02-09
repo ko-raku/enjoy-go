@@ -1,22 +1,33 @@
 package cli
 
 import (
-    "github.com/spf13/cobra"
-    "os"
+	"github.com/spf13/cobra"
+	"os"
 )
 
-var rootCmd = &cobra.Command{
-    Use:   "imagecli",
-    Short: "A CLI tool for image processing",
-    Long:  "A CLI tool for various image processing tasks like grayscale conversion, resizing, etc.",
+// exitFunc を定義。デフォルトは os.Exit に設定。
+var exitFunc = os.Exit
+
+var RootCmd = &cobra.Command{
+	Use:   "image",
+	Short: "A CLI tool for image processing",
+	Long:  "A CLI tool for various image processing tasks like grayscale conversion, resizing, etc.",
 }
 
 func Execute() {
-    if err := rootCmd.Execute(); err != nil {
-        os.Exit(1)
-    }
+	if err := RootCmd.Execute(); err != nil {
+		exitFunc(1)
+	}
 }
 
 func init() {
-    rootCmd.AddCommand(grayscaleCmd)
+	RegisterCommands()
+}
+
+func SetExitFunc(fn func(code int)) {
+	if fn == nil {
+		exitFunc = os.Exit
+	} else {
+		exitFunc = fn
+	}
 }

@@ -14,11 +14,15 @@ import (
 	"strings"
 )
 
-func isJPEG(ext string) bool {
-	return ext == ".jpeg" || ext == ".jpg"
+// ImageProcessor インターフェイス定義
+type ImageProcessor interface {
+	ConvertToGray(inputPath, outputPath string) error
 }
 
-func ConvertToGray(inputPath, outputPath string) error {
+// DefaultImageProcessor デフォルト実装
+type DefaultImageProcessor struct{}
+
+func (p *DefaultImageProcessor) ConvertToGray(inputPath, outputPath string) error {
 	// 拡張子を確認
 	ext := strings.ToLower(filepath.Ext(inputPath))
 	if ext != ".jpeg" && ext != ".jpg" && ext != ".png" {
@@ -83,4 +87,8 @@ func ConvertToGray(inputPath, outputPath string) error {
 		return err
 	}
 	return nil
+}
+
+func isJPEG(ext string) bool {
+	return ext == ".jpeg" || ext == ".jpg"
 }
