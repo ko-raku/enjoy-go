@@ -15,3 +15,10 @@
 ### main.goの作成
 ### 動作確認
 go run main.go grayscale --input m38.jpg
+
+
+1. Tesseract OCRを動作させるために、TesseractエンジンとGoラッパーライブラリをインストールします。
+```shell
+   brew install tesseract
+   go get -u github.com/otiai10/gosseract/v2
+```

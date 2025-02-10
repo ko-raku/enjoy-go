@@ -1,7 +1,7 @@
 package cli
 
 import (
-	img "enjoy/image"
+	img "enjoy/imgprocessor"
 	"github.com/spf13/cobra"
 	"path/filepath"
 )
@@ -14,8 +14,8 @@ var Processor img.Processor = &img.DefaultProcessor{}
 
 var GrayscaleCmd = &cobra.Command{
 	Use:   "grayscale",
-	Short: "Convert an image to grayscale",
-	Long:  "A CLI tool for various image processing tasks such as grayscale conversion.",
+	Short: "Convert an imgprocessor to grayscale",
+	Long:  "A CLI tool for various imgprocessor processing tasks such as grayscale conversion.",
 	Run: func(cmd *cobra.Command, args []string) {
 		if inputPath == "" {
 			cmd.Println("Error: --input flag is required.")
@@ -38,11 +38,11 @@ var GrayscaleCmd = &cobra.Command{
 			cmd.Printf("Error: %v\n", err)
 			return
 		}
-		cmd.Printf("Grayscale image created successfully: %s\n", outputPath)
+		cmd.Printf("Grayscale imgprocessor created successfully: %s\n", outputPath)
 	},
 }
 
 func init() {
-	GrayscaleCmd.Flags().StringVar(&inputPath, "input", "", "Path to the input image file (required)")
-	GrayscaleCmd.Flags().StringVar(&outputPath, "output", "", "Path to save the output image file (optional)")
+	GrayscaleCmd.Flags().StringVar(&inputPath, "input", "", "Path to the input imgprocessor file (required)")
+	GrayscaleCmd.Flags().StringVar(&outputPath, "output", "", "Path to save the output imgprocessor file (optional)")
 }

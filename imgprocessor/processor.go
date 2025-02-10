@@ -1,4 +1,4 @@
-package image
+package imgprocessor
 
 import (
 	"errors"
@@ -71,12 +71,12 @@ func (p *DefaultProcessor) ConvertToGray(inputPath, outputPath string) error {
 	switch {
 	case ext == ".png":
 		if err := png.Encode(fileOut, newImage); err != nil {
-			return fmt.Errorf("failed to encode PNG image: %w", err)
+			return fmt.Errorf("failed to encode PNG imgprocessor: %w", err)
 		}
 	case isJPEG(ext):
 		options := jpeg.Options{Quality: 90}
 		if err := jpeg.Encode(fileOut, newImage, &options); err != nil {
-			return fmt.Errorf("failed to encode JPEG image: %w", err)
+			return fmt.Errorf("failed to encode JPEG imgprocessor: %w", err)
 		}
 	default:
 		return errors.New("unsupported file format: only .jpeg, .jpg, and .png are supported")

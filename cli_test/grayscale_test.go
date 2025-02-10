@@ -31,7 +31,7 @@ func TestGrayscaleCmd(t *testing.T) {
 	output := buf.String()
 
 	// メッセージの検証
-	if !strings.Contains(output, "Grayscale image created successfully") {
+	if !strings.Contains(output, "Grayscale imgprocessor created successfully") {
 		t.Errorf("expected success message, but got '%s'", output)
 	}
 

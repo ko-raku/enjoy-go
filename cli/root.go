@@ -9,9 +9,9 @@ import (
 var exitFunc = os.Exit
 
 var RootCmd = &cobra.Command{
-	Use:   "image",
-	Short: "A CLI tool for image processing",
-	Long:  "A CLI tool for various image processing tasks like grayscale conversion, resizing, etc.",
+	Use:   "imgprocessor",
+	Short: "A CLI tool for imgprocessor processing",
+	Long:  "A CLI tool for various imgprocessor processing tasks like grayscale conversion, resizing, etc.",
 }
 
 func Execute() {
