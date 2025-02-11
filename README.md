@@ -15,10 +15,39 @@
 ### main.goの作成
 ### 動作確認
 go run main.go grayscale --input m38.jpg
-
+go run main.go textfromimage --input image_1.png
 
 1. Tesseract OCRを動作させるために、TesseractエンジンとGoラッパーライブラリをインストールします。
 ```shell
    brew install tesseract
    go get -u github.com/otiai10/gosseract/v2
 ```
+
+## MEMO
+1. Go モジュールの管理や依存関係に何らかの問題が生じた場合
+#### 1. 定期的に `go mod tidy` を実行
+開発中に必要のない依存関係が残ることを防ぐため、定期的に以下を実行すると良いでしょう。
+``` bash
+go mod tidy
+```
+#### 2. モジュールキャッシュを定期的にクリアする
+長期間開発を続けるとモジュールキャッシュが大きくなり、壊れる場合があります。必要に応じて以下を実行してキャッシュをクリアしてください。
+``` bash
+go clean -modcache
+```
+#### 3. 依存関係の変更後は必ず再ビルドを行う
+依存関係に変更が生じた場合、以下を実行し、問題がないかを確認します。
+``` bash
+go build ./...
+```
+#### 4. 依存関係の状態や問題を確認
+依存関係の詳細を確認するには、以下を実行すると、モジュールの依存関係や問題点がわかります。
+``` bash
+go list -m all
+```
+問題がある場合には以下を試してください。
+``` bash
+go mod verify
+```
+
+

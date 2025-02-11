@@ -3,6 +3,7 @@ package imgprocessor
 import (
 	"errors"
 	"fmt"
+	"github.com/disintegration/imaging"
 	"image"
 	"image/color"
 	"image/jpeg"
@@ -17,6 +18,7 @@ import (
 // Processor インターフェイス定義
 type Processor interface {
 	ConvertToGray(inputPath, outputPath string) error
+	OptimizeImageForOCR(inputPath, outputPath string) error
 }
 
 // DefaultProcessor デフォルト実装
@@ -86,6 +88,34 @@ func (p *DefaultProcessor) ConvertToGray(inputPath, outputPath string) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func (p *DefaultProcessor) OptimizeImageForOCR(inputPath, outputPath string) error {
+	// 画像を読み込み
+	img, err := imaging.Open(inputPath)
+	if err != nil {
+		return fmt.Errorf("画像の読み込みに失敗しました: %w", err)
+	}
+
+	// グレースケール化してノイズ除去
+	grayImg := imaging.Grayscale(img)
+
+	// コントラストを調整（文字を目立たせる）
+	contrastImg := imaging.AdjustContrast(grayImg, 20) // 20% コントラスト追加
+
+	// 解像度を拡大（アスペクト比を維持）
+	resizedImg := imaging.Resize(contrastImg, contrastImg.Bounds().Dx()*2, 0, imaging.Lanczos)
+
+	// 二値化（しきい値を手動で設定）
+	binaryImg := imaging.AdjustBrightness(resizedImg, -30) // 暗め補正
+
+	// 処理後の画像を保存
+	err = imaging.Save(binaryImg, outputPath)
+	if err != nil {
+		return fmt.Errorf("画像の保存に失敗しました: %w", err)
+	}
+
 	return nil
 }
 
