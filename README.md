@@ -14,8 +14,11 @@
 - グレースケール変換コマンド(cli/grayscale.go)を実装
 ### main.goの作成
 ### 動作確認
+```shell
 go run main.go grayscale --input m38.jpg
 go run main.go textfromimage --input image_1.png
+```
+
 
 1. Tesseract OCRを動作させるために、TesseractエンジンとGoラッパーライブラリをインストールします。
 ```shell
