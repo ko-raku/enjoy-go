@@ -1,56 +1,57 @@
-# 画像処理CLI手順
+# imagetool - 画像処理とOCR CLIツール
 
-1. プロジェクト構造を作成し、`go mod init` を実行。
-2. 必要なライブラリ（Cobra）をインストール。
-3. 画像処理ロジック（`imageprocessor`）を実装。
-4. CLIのベース（`cli/root.go` と `cli/grayscale.go`）を実装。
-5. `main.go` でCLIを呼び出し、動作確認。
-6. 機能拡張や別の画像処理コマンドを追加。
+`imagetool`は、画像をグレースケールに変換したり、OCRを使用して画像からテキストを抽出するためのコマンドラインツールです。
 
-### **基本的な画像処理関数の作成**
-- imageprocessor/processor.goに画像処理ロジックを実装
-### **CLIのベースを作成**
-- CLIエントリーポイント(cli/root.go)を実装
-- グレースケール変換コマンド(cli/grayscale.go)を実装
-### main.goの作成
-### 動作確認
-```shell
-go run main.go grayscale --input m38.jpg
-go run main.go textfromimage --input image_1.png
+## 特徴
+- 画像をグレースケールに変換
+- 前処理（グレースケール化・解像度調整）を行い、OCRでテキストを抽出
+- Tesseract OCRエンジンを利用
+- 簡単なCLIコマンド操作
+
+## 必要な環境
+- Tesseract OCRエンジン（[公式サイト](https://github.com/tesseract-ocr/tesseract)からインストールしてください）
+
+### 各OSでのTesseractインストール方法
+#### macOS
+```bash
+brew install tesseract
 ```
 
-
-1. Tesseract OCRを動作させるために、TesseractエンジンとGoラッパーライブラリをインストールします。
-```shell
-   brew install tesseract
-   go get -u github.com/otiai10/gosseract/v2
+#### Linux (Ubuntu)
+```bash
+sudo apt update
+sudo apt install tesseract-ocr
 ```
 
-## MEMO
-1. Go モジュールの管理や依存関係に何らかの問題が生じた場合
-#### 1. 定期的に `go mod tidy` を実行
-開発中に必要のない依存関係が残ることを防ぐため、定期的に以下を実行すると良いでしょう。
-``` bash
-go mod tidy
-```
-#### 2. モジュールキャッシュを定期的にクリアする
-長期間開発を続けるとモジュールキャッシュが大きくなり、壊れる場合があります。必要に応じて以下を実行してキャッシュをクリアしてください。
-``` bash
-go clean -modcache
-```
-#### 3. 依存関係の変更後は必ず再ビルドを行う
-依存関係に変更が生じた場合、以下を実行し、問題がないかを確認します。
-``` bash
-go build ./...
-```
-#### 4. 依存関係の状態や問題を確認
-依存関係の詳細を確認するには、以下を実行すると、モジュールの依存関係や問題点がわかります。
-``` bash
-go list -m all
-```
-問題がある場合には以下を試してください。
-``` bash
-go mod verify
+#### Windows
+- [Tesseract公式インストーラー](https://github.com/tesseract-ocr/tesseract) をダウンロードしてインストール
+
+## インストール手順
+1. アーカイブをダウンロードします（例: `imagetool-package.zip`）。
+2. 解凍後、ターミナルまたはコマンドプロンプトで実行可能ファイルを実行します。
+
+例：
+```bash
+./imagetool --help
 ```
 
+## 使い方
+### グレースケール変換
+```bash
+imagetool grayscale --input example.jpg --output example_gray.jpg
+```
 
+### 画像からOCRテキスト抽出
+```bash
+imagetool textfromimage --input example.jpg --output output.txt
+```
+
+## 注意事項
+- 現在`.jpeg`、`.jpg`、`.png`形式の画像にのみ対応。
+- 複数言語のOCRには適切なTesseract言語モデルが必要です。
+
+## 著者
+このプロジェクトは [yunaction](https://github.com/ko-raku) によって開発されました。
+
+## サポート
+問題が発生した場合は、リポジトリの[Issueセクション](https://github.com/ko-raku/enjoy-go/issues)にご報告ください。
